@@ -4,7 +4,7 @@ from .models import Post, User
 from . import db
 
 views = Blueprint('views', __name__)
-home = "views.home";
+dirHome = "views.home";
 
 @views.route('/')
 @views.route('/home')
@@ -26,7 +26,7 @@ def create_post():
             db.session.add(post)
             db.session.commit()
             flash('Post created!', category='success')
-            return redirect(url_for(home))
+            return redirect(url_for(dirHome))
 
     return render_template('create_post.html', user=current_user)
 
@@ -44,7 +44,7 @@ def delete_post(id):
         db.session.commit()
         flash('Post deleted.', category='success')
 
-    return redirect(url_for(home))
+    return redirect(url_for(dirHome))
 
 
 @views.route("/posts/<username>")
@@ -54,7 +54,7 @@ def posts(username):
 
     if not user:
         flash('User not found', category='error')
-        return redirect(url_for(home))
+        return redirect(url_for(dirHome))
 
     posts = Post.query.filter_by(author=user.id).all()
     return render_template("posts.html", user=current_user, posts=posts, username=username)
