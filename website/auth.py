@@ -24,7 +24,7 @@ def login():
         else:
             flash('Email does not correct', category='error')
 
-    return render_template('login.html')
+    return render_template('login.html', user=current_user)
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
@@ -57,7 +57,7 @@ def sign_up():
             flash('Sign up successfully', category='success')
             return redirect(url_for(home))
         
-    return render_template('sign-up.html')
+    return render_template('sign-up.html', user=current_user)
 
 @auth.route('/logout')
 @login_required
