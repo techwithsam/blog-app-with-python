@@ -11,6 +11,7 @@ dirHome = "views.home";
 @login_required
 def home():
     posts = Post.query.all()
+    
     return render_template('home.html', user=current_user, posts=posts)
 
 @views.route('/create-post', methods=['GET', 'POST'])
@@ -57,4 +58,6 @@ def posts(username):
         return redirect(url_for(dirHome))
 
     posts = Post.query.filter_by(author=user.id).all()
+
     return render_template("posts.html", user=current_user, posts=posts, username=username)
+
