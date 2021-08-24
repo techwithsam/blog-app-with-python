@@ -71,7 +71,7 @@ def create_comment(post_id):
     else:
         post = Post.query.filter_by(id=post_id)
         if post:
-            comment = Comment(text=text, author=current_user.id, post=post_id)
+            comment = Comment(text=text, author=current_user.id, post_id=post_id)
             db.session.add(comment)
             db.session.commit()
             flash('Comment created!', category='success')
