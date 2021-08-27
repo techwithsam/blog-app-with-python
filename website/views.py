@@ -99,7 +99,7 @@ def delete_comment(comment_id):
     return redirect(url_for(dirHome))
 
 
-@views.route("/like-post/<post_id>", methods=['POST'])
+@views.route("/like-post/<post_id>", methods=['GET'])
 @login_required 
 def like(post_id):
     post = Post.query.filter_by(id=post_id)
@@ -116,4 +116,3 @@ def like(post_id):
         db.session.commit()
 
     return redirect(url_for(dirHome))
-    
