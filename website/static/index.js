@@ -1,6 +1,6 @@
-function like(post_id) {
-  const likeCount = document.getElementById(`likes-count-${post_id}`);
-  const likeButton = document.getElementById(`like-button-${post_id}`);
+function like(postId) {
+  const likeCount = document.getElementById(`likes-count-${postId}`);
+  const likeButton = document.getElementById(`like-button-${postId}`);
 
   fetch(`/like-post/${postId}`, { method: "POST" })
     .then((res) => res.json())
@@ -11,5 +11,6 @@ function like(post_id) {
       } else {
         likeButton.className = "far fa-thumbs-up";
       }
-    }).catch((e) => alert("Could not like post."));
+    })
+    .catch((e) => alert("Could not like post."));
 }

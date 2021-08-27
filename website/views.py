@@ -3,16 +3,16 @@ from flask_login import login_required, current_user
 from .models import Post, User, Comment, Like
 from . import db
 
-views = Blueprint('views', __name__)
+views = Blueprint("views", __name__)
 dirHome = "views.home";
 
-@views.route('/')
-@views.route('/home')
+@views.route("/")
+@views.route("/home")
 @login_required
 def home():
     posts = Post.query.all()
-    
     return render_template('home.html', user=current_user, posts=posts)
+
 
 @views.route('/create-post', methods=['GET', 'POST'])
 @login_required
@@ -30,6 +30,7 @@ def create_post():
             return redirect(url_for(dirHome))
 
     return render_template('create_post.html', user=current_user)
+
 
 @views.route('/delete-post/<id>')
 @login_required
@@ -112,7 +113,7 @@ def like(post_id):
         db.session.commit()
     else:
         like = Like(author=current_user.id, post_id=post_id)
-        db.session.delete(like)
+        db.session.add(like)
         db.session.commit()
 
     return jsonify({"likes": len(post.likes),"liked": current_user.id in map(lambda x: x.author, post.likes)})
